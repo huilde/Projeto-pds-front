@@ -3,10 +3,17 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
+import { Login } from "./pages/Login/Login";
+import { Main } from "./pages/Main/Main";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Login />,
+  },
+  {
+    path: "/main",
+    element: <Main />,
   },
 ]);
 
