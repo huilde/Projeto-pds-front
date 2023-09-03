@@ -32,6 +32,7 @@ const StyledLogin = styled.div`
 
   .button:hover {
     background: var(--neutrals-black, #1c1c1c);
+    color: #f7f8f9 !important;
   }
 
   .button:disable {

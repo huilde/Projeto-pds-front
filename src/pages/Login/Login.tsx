@@ -1,14 +1,21 @@
 import { FormEvent, useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
-  remember?: string;
 };
 
 import { StyledLogin } from "./Login.style";
+
 const Login = () => {
+  const validateMessages = {
+    required: "${label} precisa ser preenchido!",
+    types: {
+      email: "digite um e-mail válido!",
+      number: "${label} is not a valid number!",
+    },
+  };
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -26,26 +33,28 @@ const Login = () => {
         <h2> Faça o Login para continuar:</h2>
         <br />
         <Form
+          validateMessages={validateMessages}
           className="teste"
           name="basic"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <label className="label">E-mail:</label>
           <Form.Item<FieldType>
             className="label"
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Por favor digite seu e-mail",
+                type: "email",
               },
             ]}
           >
-            <label className="label">Usuário:</label>
             <Input className="baseInput" />
           </Form.Item>
 
+          <label className="label"> Senha:</label>
           <Form.Item<FieldType>
             className="label"
             name="password"
@@ -56,7 +65,6 @@ const Login = () => {
               },
             ]}
           >
-            <label className="label"> Senha:</label>
             <Input.Password className="baseInput" />
           </Form.Item>
 
