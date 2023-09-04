@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "antd": "^5.8.5",
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1",
     "form": "^0.2.4",
     "hook": "^0.0.5",
     "react": "^18.2.0",
@@ -19,6 +21,7 @@
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
+    "@types/node": "^20.5.9",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

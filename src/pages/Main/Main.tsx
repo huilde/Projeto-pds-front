@@ -1,15 +1,14 @@
 import React from "react";
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router-dom"
 import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
+import { StyledMain } from "@/pages/Main/Main.style";
 
 const { Header, Content, Footer, Sider } = Layout;
-
-import { StyledMain } from "./Main.style.js";
 
 const Main = () => {
   const {

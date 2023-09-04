@@ -1,14 +1,43 @@
-import { FormEvent, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input } from "antd"
 
 type FieldType = {
-  email?: string;
-  password?: string;
-};
+  email?: string
+  password?: string
+}
 
-import { StyledLogin } from "./Login.style";
+import { StyledLogin } from "./Login/Login.style"
+import {ApiService} from "../../services/ApiService.ts"
+import { useNavigate } from "react-router-dom"
+
+type LoginData = {
+  email: string
+  password: string
+}
 
 const Login = () => {
+  const api = ApiService()
+  const navigate = useNavigate()
+
+  const handleLogin = async (data: LoginData) => {
+    try {
+      const {
+        email,
+        password
+      } = data
+
+      const response = await api.post("/login", {
+        email,
+        password
+      })
+
+      window.localStorage.setItem("x-access-token", response.data.token)
+
+      navigate("/main")
+    } catch (error) {
+      console.log(error?.response?.data?.error)
+    }
+  }
+
   const validateMessages = {
     required: "${label} precisa ser preenchido!",
     types: {
@@ -16,13 +45,18 @@ const Login = () => {
       number: "${label} is not a valid number!",
     },
   };
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+
+  const onFinish = async (values: LoginData) => {
+    await handleLogin({
+      email: values.email,
+      password: values.password
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <StyledLogin>
       <main className="main">
