@@ -1,5 +1,5 @@
 import React from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   UploadOutlined,
   UserOutlined,
@@ -11,6 +11,8 @@ import { StyledMain } from "@/pages/Main/Main.style";
 const { Header, Content, Footer, Sider } = Layout;
 
 const Main = () => {
+  const navigate = useNavigate();
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -42,6 +44,7 @@ const Main = () => {
               key: String(index + 1),
               icon: React.createElement(icon),
               label: `Perfil`,
+              onClick: () => navigate("/perfil"),
             }))}
           />
         </Sider>

@@ -5,6 +5,7 @@ import "./index.css";
 
 import { Login } from "./pages/Login/Login";
 import { Main } from "./pages/Main/Main";
+import { CreateUser } from "./pages/CreateUser/CreateUser";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,12 @@ const router = createBrowserRouter([
     path: "/main",
     element: <Main />,
   },
+  {
+    path: "/createUser",
+    element: <CreateUser />,
+  },
+
+  // { path: "/perfil", element: <Perfil /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
