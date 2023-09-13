@@ -1,5 +1,5 @@
 import React from "react";
-import { redirect } from "react-router-dom"
+import { redirect } from "react-router-dom";
 import {
   UploadOutlined,
   UserOutlined,
@@ -42,8 +42,6 @@ const Main = () => {
               key: String(index + 1),
               icon: React.createElement(icon),
               label: `Perfil`,
-              onClick: async () =>
-                await (console.log("fui clickado"), redirect("/Perfil")),
             }))}
           />
         </Sider>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button, Form, Input } from "antd";
 
 type FieldType = {
@@ -6,37 +6,9 @@ type FieldType = {
   password?: string;
 };
 
-import { StyledLogin } from "./Login.style";
-import { ApiService } from "../../services/ApiService";
-import { useNavigate } from "react-router-dom";
+import { StyledCreateUser } from "./CreateUser.style.js";
 
-type LoginData = {
-  email: string;
-  password: string;
-};
-
-const Login = () => {
-  const [hasError, setHasError] = useState(false);
-  const api = ApiService();
-  const navigate = useNavigate();
-
-  const handleLogin = async (data: LoginData) => {
-    try {
-      const { email, password } = data;
-
-      const response = await api.post("/login", {
-        email,
-        password,
-      });
-
-      window.localStorage.setItem("x-access-token", response.data.token);
-
-      navigate("/main");
-    } catch (error) {
-      console.log(error?.response?.data?.error);
-    }
-  };
-
+const CreateUSer = () => {
   const validateMessages = {
     required: "${label} precisa ser preenchido!",
     types: {
@@ -44,20 +16,15 @@ const Login = () => {
       number: "${label} is not a valid number!",
     },
   };
-
-  const onFinish = async (values: LoginData) => {
-    await handleLogin({
-      email: values.email,
-      password: values.password,
-    });
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    setHasError(true);
+    console.log("Failed:", errorInfo);
   };
-
   return (
-    <StyledLogin>
+    <StyledCreateUser>
       <main className="main">
         <h1 className="mainText">
           Compartilhe e interaja sobre <span className="red">filmes</span>.
@@ -100,7 +67,6 @@ const Login = () => {
           >
             <Input.Password className="baseInput" />
           </Form.Item>
-          {hasError && <p>login e senha incorretos</p>}
 
           <Form.Item>
             <Button className="button" htmlType="submit">
@@ -109,8 +75,8 @@ const Login = () => {
           </Form.Item>
         </Form>
       </main>
-    </StyledLogin>
+    </StyledCreateUser>
   );
 };
 
-export { Login };
+export { CreateUSer };
