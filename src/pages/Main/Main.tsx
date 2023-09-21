@@ -1,27 +1,25 @@
 import React from "react";
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import {
-  UploadOutlined,
+  HomeOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { StyledMain } from "../Main/Main.style"
+import { StyledMain } from "../Main/Main.style";
 
 const { Content, Footer, Sider } = Layout;
 
 const Main = () => {
+  const navigate = useNavigate();
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   return (
     <StyledMain>
-      <Layout
-         style={{
-          border: "2px solid red"
-        }}
-      >
+      <Layout>
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
@@ -36,26 +34,20 @@ const Main = () => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["4"]}
+            defaultSelectedKeys={["1"]}
             items={[
-              UserOutlined,
-              VideoCameraOutlined,
-              UploadOutlined,
-              UserOutlined,
-            ].map((icon, index) => ({
+              { icon: HomeOutlined, route: "/Main", label: "Home" },
+              { icon: UserOutlined, route: "/perfil", label: "Perfil" },
+              { icon: VideoCameraOutlined, route: "/films", label: "Filmes" },
+            ].map(({ icon, route, label }, index) => ({
               key: String(index + 1),
               icon: React.createElement(icon),
-              label: `Perfil`,
-              onClick: async () =>
-                await (console.log("fui clickado"), redirect("/Perfil")),
+              label: label,
+              onClick: () => navigate(route),
             }))}
           />
         </Sider>
-        <Layout
-          style={{
-            border: "2px solid red"
-          }}
-        >
+        <Layout style={{}}>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{

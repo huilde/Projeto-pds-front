@@ -1,17 +1,23 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const StyledFilms = styled.div`
-    .ant-card-body {
-        padding: 0px;
-    }
+  height: 100vh;
 
-    .ant-pagination-options {
-        display: none;
-    }
+  .ant-card-body {
+    padding: 0px;
+  }
 
-    .ant-image-mask {
-        border-radius: 8px;
-    }
-`
+  .ant-pagination-options {
+    display: none;
+  }
 
-export { StyledFilms }
+  .ant-image-mask {
+    border-radius: 8px;
+  }
+
+  .ant-layout-sider-children {
+    padding-top: 20rem;
+  }
+`;
+
+export { StyledFilms };

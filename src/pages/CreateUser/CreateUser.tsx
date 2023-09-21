@@ -2,29 +2,33 @@ import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 
 type FieldType = {
+  name?: string;
   email?: string;
   password?: string;
+  password2?: string;
 };
 
-import { StyledLogin } from "./Login.style";
+import { StyledCreateUser } from "./CreateUser.style";
 import { ApiService } from "../../services/ApiService";
 import { useNavigate } from "react-router-dom";
 
-type LoginData = {
+type userData = {
+  name: string;
   email: string;
   password: string;
 };
 
-const Login = () => {
+const CreateUser = () => {
   const [hasError, setHasError] = useState(false);
   const api = ApiService();
   const navigate = useNavigate();
 
-  const handleLogin = async (data: LoginData) => {
+  const handleLogin = async (data: userData) => {
     try {
-      const { email, password } = data;
+      const { email, password, name } = data;
 
-      const response = await api.post("/login", {
+      const response = await api.post("/user", {
+        name,
         email,
         password,
       });
@@ -45,8 +49,9 @@ const Login = () => {
     },
   };
 
-  const onFinish = async (values: LoginData) => {
+  const onFinish = async (values: userData) => {
     await handleLogin({
+      name: values.name,
       email: values.email,
       password: values.password,
     });
@@ -57,13 +62,13 @@ const Login = () => {
   };
 
   return (
-    <StyledLogin>
+    <StyledCreateUser>
       <main className="main">
         <h1 className="mainText">
           Compartilhe e interaja sobre <span className="red">filmes</span>.
         </h1>
         <br />
-        <h2> Faça o Login para continuar:</h2>
+        <h2> crie sua conta:</h2>
         <br />
         <Form
           validateMessages={validateMessages}
@@ -73,6 +78,20 @@ const Login = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <label className="label">Nome:</label>
+          <Form.Item<FieldType>
+            className="label"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Por favor digite seu nome!",
+              },
+            ]}
+          >
+            <Input className="baseInput" />
+          </Form.Item>
+
           <label className="label">E-mail:</label>
           <Form.Item<FieldType>
             className="label"
@@ -80,6 +99,7 @@ const Login = () => {
             rules={[
               {
                 required: true,
+                message: "Por favor digite seu e-mail!",
                 type: "email",
               },
             ]}
@@ -100,6 +120,31 @@ const Login = () => {
           >
             <Input.Password className="baseInput" />
           </Form.Item>
+
+          <label className="label"> confirme sua Senha:</label>
+          <Form.Item<FieldType>
+            className="label"
+            name="password2"
+            dependencies={["password"]}
+            rules={[
+              {
+                required: true,
+                message: "Confirme sua senha!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("As senhas digitadas não são iguais!")
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password className="baseInput" />
+          </Form.Item>
           {hasError && <p>login e senha incorretos</p>}
 
           <Form.Item>
@@ -109,8 +154,8 @@ const Login = () => {
           </Form.Item>
         </Form>
       </main>
-    </StyledLogin>
+    </StyledCreateUser>
   );
 };
 
-export { Login };
+export { CreateUser };

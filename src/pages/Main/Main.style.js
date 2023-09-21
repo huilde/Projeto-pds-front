@@ -7,9 +7,16 @@ const StyledMain = styled.div`
   height: 100vh;
   align-items: center;
   justify-content: center;
+
   .ant-layout {
     height: 100vh;
   }
+
+  .ant-layout-sider-children{
+    padding-top: 20rem;
+  }
+
+  .
 `;
 
 export { StyledMain };
