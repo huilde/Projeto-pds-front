@@ -1,4 +1,4 @@
-import { Card, Divider, Image, Input, List, Pagination, Typography } from "antd"
+import { Card, Image, Input, List, Pagination, Typography } from "antd"
 import { useEffect, useState } from "react"
 import { ApiService } from "../../services/ApiService"
 import { StyledFilms } from "../Films/Films.style"
@@ -20,7 +20,6 @@ type Film = {
 const COUNT_FILMS = 500 * 20
 
 const Films = () => {
-    const [searchFilm, setSearchFilm] = useState<string>("")
     const [films, setFilms] = useState<Film[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
@@ -70,7 +69,7 @@ const Films = () => {
                             display: "flex"
                         }}
                         onSearch={(value) => {
-                            setSearchFilm(value)
+                            console.log(value)
                         }}
                     >
                     </Input.Search>
