@@ -7,8 +7,13 @@ import { Login } from "./pages/Login/Login";
 import { Main } from "./pages/Main/Main";
 import { Perfil } from "./pages/Perfil/Perfil";
 import { CreateUser } from "./pages/CreateUser/CreateUser";
+import { PrivateRoute } from "./components/PrivateRoute";
 import Films from "./pages/Films/Films";
 
+function isAuthenticated() {
+  return localStorage.getItem("token") !== null;
+}
+const auth = isAuthenticated();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,17 +21,33 @@ const router = createBrowserRouter([
   },
   {
     path: "/main",
-    element: <Main />,
+    element: (
+      <PrivateRoute auth={auth}>
+        <Main />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/createUser",
     element: <CreateUser />,
   },
 
-  { path: "/perfil", element: <Perfil /> },
+  {
+    path: "/perfil",
+    element: (
+      <PrivateRoute auth={auth}>
+        <Perfil />
+      </PrivateRoute>
+    ),
+  },
   {
     path: "/films",
-    element: <Films />,
+
+    element: (
+      <PrivateRoute auth={auth}>
+        <Films />
+      </PrivateRoute>
+    ),
   },
 ]);
 

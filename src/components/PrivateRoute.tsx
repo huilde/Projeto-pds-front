@@ -1,20 +1,18 @@
-import { Route, redirect } from "react-router-dom";
+import React from "react";
+import { Login } from "../pages/Login/Login";
 
-const PrivateRoute = (props: any) => {
-  // eslint-disable-next-line react/prop-types
-  const { component: Component, isAuthenticated, ...additionalProps } = props;
-  //   const { authState } = useContext(AuthContext);
-  //   const routeChecker = isAuthenticated ?? authState.authenticated;
-  const routeChecker = true;
+function PrivateRoute({
+  children,
+  auth,
+}: {
+  children: JSX.Element;
+  auth: boolean;
+}) {
+  if (!auth) {
+    return <Login />;
+  }
 
-  return (
-    <Route
-      {...additionalProps}
-      render={(info: any) =>
-        routeChecker ? <Component {...info} /> : redirect("/login")
-      }
-    />
-  );
-};
+  return children;
+}
 
-export default PrivateRoute;
+export { PrivateRoute };
