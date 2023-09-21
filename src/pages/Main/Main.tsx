@@ -6,7 +6,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { StyledMain } from "@/pages/Main/Main.style";
+import { StyledMain } from "../Main/Main.style";
 
 const { Header, Content, Footer, Sider } = Layout;
 
