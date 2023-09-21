@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Divider } from "antd";
 
 type FieldType = {
   email?: string;
@@ -108,6 +108,11 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
+        <Divider />
+        <p>Não tem conta, crie a sua agora</p>
+        <Button className="button gray" onClick={() => navigate("/createUser")}>
+          criar conta
+        </Button>
       </main>
     </StyledLogin>
   );
