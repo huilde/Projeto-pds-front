@@ -6,9 +6,9 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { StyledMain } from "@/pages/Main/Main.style";
+import { StyledMain } from "../Main/Main.style";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const Main = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Main = () => {
             items={[
               { icon: HomeOutlined, route: "/Main", label: "Home" },
               { icon: UserOutlined, route: "/perfil", label: "Perfil" },
-              { icon: VideoCameraOutlined, route: "/filmes", label: "Filmes" },
+              { icon: VideoCameraOutlined, route: "/films", label: "Filmes" },
             ].map(({ icon, route, label }, index) => ({
               key: String(index + 1),
               icon: React.createElement(icon),
@@ -47,8 +47,7 @@ const Main = () => {
             }))}
           />
         </Sider>
-        <Layout>
-          <Header style={{ padding: 0 }}>teste</Header>
+        <Layout style={{}}>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{

@@ -72,7 +72,7 @@ const Perfil = () => {
             items={[
               { icon: HomeOutlined, route: "/main", label: "Home" },
               { icon: UserOutlined, route: "/perfil", label: "Perfil" },
-              { icon: VideoCameraOutlined, route: "/filmes", label: "Filmes" },
+              { icon: VideoCameraOutlined, route: "/films", label: "Filmes" },
             ].map(({ icon, route, label }, index) => ({
               key: String(index + 1),
               icon: React.createElement(icon),
