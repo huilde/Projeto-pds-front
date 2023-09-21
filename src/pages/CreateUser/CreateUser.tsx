@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Input } from "antd";
 
 type FieldType = {
@@ -35,7 +35,7 @@ const CreateUser = () => {
 
       window.localStorage.setItem("x-access-token", response.data.token);
 
-      navigate("/main");
+      navigate("/login");
     } catch (error) {
       console.log(error?.response?.data?.error);
     }

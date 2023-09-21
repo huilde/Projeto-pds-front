@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   UserOutlined,
@@ -17,39 +17,99 @@ import {
   Divider,
   Input,
   Popover,
+  Space,
+  Button,
 } from "antd";
 
 import { StyledPerfil } from "./Perfil.style";
+import { ApiService } from "../../services/ApiService";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const { TextArea } = Input;
 
+type ProfileInput = {
+  about?: string
+  picture?: string
+}
+
 const Perfil = () => {
   const navigate = useNavigate();
-  const [selectedPicture, setSelectedPicture] = useState(0);
+  const [profileInfo, setProfileInfo] = useState<ProfileInput>({} as ProfileInput);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isSave, setIsSave] = useState<boolean>(false)
+  const [isSaving, setIsSaving] = useState<boolean>(false)
+
+  const api = ApiService();
+
+  const handleChangeProfileInputEdited = (data: Partial<ProfileInput>) => {
+    const actualProfileInfo: ProfileInput = {
+      ...profileInfo,
+      ...data
+    }
+
+    setProfileInfo(actualProfileInfo)
+  }
 
   const content = (
     <div style={{ cursor: "pointer" }}>
       <img
         src="../../../public/homem.png"
         alt=""
-        onClick={() => setSelectedPicture(0)}
+        onClick={() => {
+          handleChangeProfileInputEdited({
+            picture: "homem.png"
+          })
+        }}
       />
       <br />
       <br />
       <img
         src="../../../public/mulher.png"
         alt=""
-        onClick={() => setSelectedPicture(1)}
+        onClick={() => {
+          handleChangeProfileInputEdited({
+            picture: "mulher.png"
+          })
+        }}
       />
     </div>
   );
 
+  const handleUpdateProfile = async () => {
+    setIsSaving(true)
+
+    try {
+      await api.put("/profile", {
+        ...profileInfo
+      })
+
+      setIsEditMode(false)
+      setIsSave(false)
+    } catch (error) {
+      console.log(error)
+    }
+
+    setIsSaving(false)
+  }
+
+  const handleGetProfile = async () => {
+    try {
+      const response = await api.get("/profile")
+
+      setProfileInfo(response.data.profile)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  useEffect(() => {
+    handleGetProfile()
+  }, [])
 
   return (
     <StyledPerfil>
@@ -106,23 +166,32 @@ const Perfil = () => {
                       content={content}
                       trigger="click"
                     >
-                      <Avatar
-                        src={
-                          selectedPicture === 0
-                            ? "../../../public/homem.png"
-                            : "../../../public/mulher.png"
-                        }
-                        size={164}
-                        icon={<UserOutlined />}
-                      ></Avatar>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <Avatar
+                          src={`../../../public/${profileInfo.picture}`}
+                          size={164}
+                          icon={<UserOutlined />}
+                        ></Avatar>
+                      </div>
                     </Popover>
                     <br />
                     <br />
-                    <Row>
-                      <Col>
-                        <EditOutlined></EditOutlined>
-                        <span> Editar Perfil</span>
-                      </Col>
+                    <Row
+                      justify="center"
+                    >
+                      <Space
+                        size="middle"
+                      >
+                        <Col>
+                          <EditOutlined onClick={() => setIsEditMode(true)}></EditOutlined>
+                          <span> Editar Perfil</span>
+                        </Col>
+                      </Space> 
                     </Row>
                   </Col>
                 </Row>
@@ -139,10 +208,16 @@ const Perfil = () => {
                     <label htmlFor="">Sobre:</label>
                     <span> </span>
                     <TextArea
-                      placeholder="teste"
-                      disabled
+                      disabled={!isEditMode}
                       maxLength={100}
                       style={{ height: 150, resize: "none", width: "100%" }}
+                      onChange={(event) => {
+                        handleChangeProfileInputEdited({
+                          about: event.target.value
+                        })
+                        setIsSave(true)
+                      }}
+                      value={profileInfo?.about}
                     ></TextArea>
                   </Col>
                 </Row>
@@ -161,11 +236,31 @@ const Perfil = () => {
                   </Col>
                 </Row>
               </Card>
+              
+              <div
+                style={{
+                  display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: "16px",
+                    gap: "16px"
+                }}
+              >
+                <Button
+                  type="default"
+                  size="large"
+                  onClick={() => {
+                    setIsEditMode(false)
+                    setIsSave(false)
+                  }} 
+                  disabled={!isSave}
+                >
+                  Cancelar alterações
+                </Button>
+
+                <Button type="primary" size="large" onClick={handleUpdateProfile} disabled={!isSave} loading={isSaving}>Salvar alterações</Button>
+              </div>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Criado para a matéria de projeto detalhado de software ©2023
-          </Footer>
         </Layout>
       </Layout>
     </StyledPerfil>

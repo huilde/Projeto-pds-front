@@ -7,8 +7,7 @@ import {
   Pagination,
   Typography,
   Layout,
-  Menu,
-  theme,
+  Menu
 } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +33,7 @@ type Film = {
     name: string;
   }>;
 };
-const { Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const COUNT_FILMS = 500 * 20;
 
@@ -93,7 +92,7 @@ const Films = () => {
             }))}
           />
         </Sider>
-        <Layout style={{}}>
+        <Layout style={{ overflow: "auto" }}>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{
@@ -134,10 +133,10 @@ const Films = () => {
                   dataSource={films}
                   grid={{
                     xs: 1,
-                    sm: 2,
-                    md: 3,
-                    lg: 4,
-                    xl: 5,
+                    sm: 1,
+                    md: 2,
+                    lg: 3,
+                    xl: 3,
                     xxl: 5,
                   }}
                   renderItem={(item: Film) => {
@@ -145,14 +144,15 @@ const Films = () => {
                       <Card
                         key={item.id}
                         style={{
-                          margin: 12,
-                          marginBottom: 32,
+                            margin: 12,
+                            marginBottom: 32,
+                            width: "300px"
                         }}
                       >
                         <Image
                           style={{
                             borderRadius: 8,
-                            height: "500px",
+                            width: "100%"
                           }}
                           src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
                         ></Image>
@@ -180,9 +180,6 @@ const Films = () => {
               </div>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Criado para a matéria de projeto detalhado de software ©2023
-          </Footer>
         </Layout>
       </Layout>
     </StyledFilms>

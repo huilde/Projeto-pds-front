@@ -1,5 +1,4 @@
-import React from "react";
-import { Login } from "../pages/Login/Login";
+import { useNavigate } from "react-router-dom"
 
 function PrivateRoute({
   children,
@@ -8,8 +7,11 @@ function PrivateRoute({
   children: JSX.Element;
   auth: boolean;
 }) {
+
+  const navigate = useNavigate();
+  
   if (!auth) {
-    return <Login />;
+    navigate("/")
   }
 
   return children;

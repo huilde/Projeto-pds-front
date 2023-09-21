@@ -11,7 +11,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import Films from "./pages/Films/Films";
 
 function isAuthenticated() {
-  return localStorage.getItem("token") !== null;
+  return localStorage.getItem("x-access-token") !== null;
 }
 const auth = isAuthenticated();
 const router = createBrowserRouter([

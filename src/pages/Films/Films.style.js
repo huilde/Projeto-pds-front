@@ -5,6 +5,7 @@ const StyledFilms = styled.div`
 
   .ant-card-body {
     padding: 0px;
+    width: 300px;
   }
 
   .ant-pagination-options {
