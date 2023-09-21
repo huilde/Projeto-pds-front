@@ -5,7 +5,7 @@ type FieldType = {
   password?: string
 }
 
-import { StyledLogin } from "./Login/Login.style"
+import { StyledLogin } from "../Login/Login.style"
 import {ApiService} from "../../services/ApiService.ts"
 import { useNavigate } from "react-router-dom"
 
