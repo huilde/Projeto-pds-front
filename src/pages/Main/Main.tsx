@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  UploadOutlined,
+  HomeOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
@@ -34,17 +34,16 @@ const Main = () => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["4"]}
+            defaultSelectedKeys={["1"]}
             items={[
-              UserOutlined,
-              VideoCameraOutlined,
-              UploadOutlined,
-              UserOutlined,
-            ].map((icon, index) => ({
+              { icon: HomeOutlined, route: "/Main", label: "Home" },
+              { icon: UserOutlined, route: "/perfil", label: "Perfil" },
+              { icon: VideoCameraOutlined, route: "/filmes", label: "Filmes" },
+            ].map(({ icon, route, label }, index) => ({
               key: String(index + 1),
               icon: React.createElement(icon),
-              label: `Perfil`,
-              onClick: () => navigate("/perfil"),
+              label: label,
+              onClick: () => navigate(route),
             }))}
           />
         </Sider>

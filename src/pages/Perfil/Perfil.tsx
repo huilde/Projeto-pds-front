@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  UploadOutlined,
   UserOutlined,
+  HomeOutlined,
   VideoCameraOutlined,
   EditOutlined,
 } from "@ant-design/icons";
@@ -15,9 +15,10 @@ import {
   Row,
   Col,
   Divider,
-  Tooltip,
   Input,
+  Popover,
 } from "antd";
+
 import { StyledPerfil } from "./Perfil.style";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -26,6 +27,25 @@ const { TextArea } = Input;
 
 const Perfil = () => {
   const navigate = useNavigate();
+  const [selectedPicture, setSelectedPicture] = useState(0);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const content = (
+    <div style={{ cursor: "pointer" }}>
+      <img
+        src="../../../public/homem.png"
+        alt=""
+        onClick={() => setSelectedPicture(0)}
+      />
+      <br />
+      <br />
+      <img
+        src="../../../public/mulher.png"
+        alt=""
+        onClick={() => setSelectedPicture(1)}
+      />
+    </div>
+  );
 
   const {
     token: { colorBgContainer },
@@ -48,8 +68,9 @@ const Perfil = () => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["4"]}
+            defaultSelectedKeys={["2"]}
             items={[
+              { icon: HomeOutlined, route: "/main", label: "Home" },
               { icon: UserOutlined, route: "/perfil", label: "Perfil" },
               { icon: VideoCameraOutlined, route: "/filmes", label: "Filmes" },
             ].map(({ icon, route, label }, index) => ({
@@ -79,7 +100,22 @@ const Perfil = () => {
                   }}
                 >
                   <Col>
-                    <Avatar size={164} icon={<UserOutlined />}></Avatar>
+                    <Popover
+                      placement="bottom"
+                      title="Selecione sua foto de perfil:"
+                      content={content}
+                      trigger="click"
+                    >
+                      <Avatar
+                        src={
+                          selectedPicture === 0
+                            ? "../../../public/homem.png"
+                            : "../../../public/mulher.png"
+                        }
+                        size={164}
+                        icon={<UserOutlined />}
+                      ></Avatar>
+                    </Popover>
                     <br />
                     <br />
                     <Row>
