@@ -5,6 +5,7 @@ import "./index.css";
 
 import { Login } from "./pages/Login/Login";
 import { Main } from "./pages/Main/Main";
+import { Perfil } from "./pages/Perfil/Perfil";
 import { CreateUser } from "./pages/CreateUser/CreateUser";
 
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     element: <CreateUser />,
   },
 
-  // { path: "/perfil", element: <Perfil /> },
+  { path: "/perfil", element: <Perfil /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
