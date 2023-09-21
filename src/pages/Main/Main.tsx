@@ -6,7 +6,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { StyledMain } from "@/pages/Main/Main.style";
+import { StyledMain } from "../Main/Main.style"
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -17,7 +17,11 @@ const Main = () => {
 
   return (
     <StyledMain>
-      <Layout>
+      <Layout
+         style={{
+          border: "2px solid red"
+        }}
+      >
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
@@ -47,8 +51,11 @@ const Main = () => {
             }))}
           />
         </Sider>
-        <Layout>
-          <Header style={{ padding: 0 }}>teste</Header>
+        <Layout
+          style={{
+            border: "2px solid red"
+          }}
+        >
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{

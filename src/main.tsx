@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "./index.css";
 
-import { Login } from "./pages/Login/Login";
-import { Main } from "./pages/Main/Main";
+import { Login } from "./pages/Login/Login"
+import { Main } from "./pages/Main/Main"
+import Films from "./pages/Films/Films"
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     path: "/main",
     element: <Main />,
   },
+  {
+    path: "/films",
+    element: <Films />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
